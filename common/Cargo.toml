@@ -2,8 +2,12 @@
 name = "lazy8-common"
 version = "0.1.0"
 description = '''
-    Rust crate for common functions used by other crates
+    Rust crate for common functions in lazy8 used by other crates
 '''
 edition = "2024"
 
 [dependencies]
+clap.workspace = true
+log.workspace = true
+fern.workspace = true
+chrono.workspace = true

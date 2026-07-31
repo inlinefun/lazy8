@@ -9,3 +9,5 @@ edition = "2024"
 [dependencies]
 lazy8-common.workspace = true
 lazy8-core.workspace = true
+
+log.workspace = true
