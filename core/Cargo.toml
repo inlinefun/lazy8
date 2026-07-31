@@ -1,0 +1,10 @@
+[package]
+name = "lazy8-core"
+version = "0.1.0"
+description = '''
+    Core crate for the CHIP-8 Emulator
+'''
+edition = "2024"
+
+[dependencies]
+lazy8-common.workspace = true

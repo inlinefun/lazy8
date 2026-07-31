@@ -1,0 +1,11 @@
+[package]
+name = "lazy8-ui"
+version = "0.1.0"
+description = '''
+    Frontend for the CHIP-8 emulator
+'''
+edition = "2024"
+
+[dependencies]
+lazy8-common.workspace = true
+lazy8-core.workspace = true
