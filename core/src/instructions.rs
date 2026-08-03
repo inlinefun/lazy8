@@ -93,4 +93,29 @@ impl CHIP8 {
     pub(crate) fn set_index(&mut self, nnn: u16) {
         self.i = nnn;
     }
+
+    /// display
+    pub(crate) fn display(&mut self, x: u16, y: u16, n: u16) {
+        // get x and y screen coordinates
+        let x_coord = (self.registers[x as usize] % 64) as u16;
+        let y_coord = (self.registers[y as usize] % 32) as u16;
+
+        // set register[F] to be 0
+        self.registers[0xF as usize] = 0;
+
+        for i in 0..n {
+            let nth_byte = self.memory[(self.i + i) as usize];
+            for bit in 0..8 {
+                if nth_byte & (0x80 >> bit) != 0 {
+                    let current_x_coord = x_coord + bit;
+                    let current_y_coord = y_coord + i;
+                    let index = current_x_coord + (current_y_coord * 64);
+                    if self.display[index as usize] {
+                        self.registers[0xF as usize] = 1;
+                    }
+                    self.display[index as usize] ^= true;
+                }
+            }
+        }
+    }
 }

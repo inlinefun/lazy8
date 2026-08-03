@@ -2,7 +2,7 @@ mod instructions;
 
 pub struct CHIP8 {
     display: [bool; 64 * 32],
-    _memory: [u8; 4 * 1024],
+    memory: [u8; 4 * 1024],
     pc: u16,
     i: u16,
     stack: Vec<u16>,
@@ -32,7 +32,7 @@ impl Default for CHIP8 {
     fn default() -> Self {
         Self {
             display: [false; 64 * 32],
-            _memory: [0; 4 * 1024],
+            memory: [0; 4 * 1024],
             pc: 0x200, // 512 in decimal
             i: 0,
             stack: vec![],
@@ -48,7 +48,7 @@ impl CHIP8 {
         let mut exceeds = false;
         for (index, &byte) in data.iter().enumerate() {
             if 0x200 + index < (4 * 1024) {
-                self._memory[0x200 + index] = byte
+                self.memory[0x200 + index] = byte
             } else {
                 exceeds = true;
             }
@@ -66,8 +66,8 @@ impl CHIP8 {
     }
 
     fn fetch(&mut self) -> u16 {
-        let first_byte = self._memory[self.pc as usize] as u16;
-        let second_byte = self._memory[(self.pc + 1) as usize] as u16;
+        let first_byte = self.memory[self.pc as usize] as u16;
+        let second_byte = self.memory[(self.pc + 1) as usize] as u16;
         let opcode = (first_byte << 8) | second_byte;
         self.pc += 2;
         return opcode;
@@ -118,7 +118,7 @@ impl CHIP8 {
             (0xA, _, _, _) => self.set_index(data.nnn),
 
             // display
-            (0xD, _, _, _) => (),
+            (0xD, _, _, _) => self.display(data.x, data.y, data.n),
 
             _ => {
                 log::debug!("Opcode {} possibly not implemented", data.opcode);
