@@ -27,7 +27,11 @@ pub fn init_logger(use_debug_mode: bool) -> Result<(), fern::InitError> {
             LevelFilter::Info
         }
     } else {
-        LevelFilter::Trace
+        if use_debug_mode {
+            LevelFilter::Trace
+        } else {
+            LevelFilter::Debug
+        }
     };
     let colors = ColoredLevelConfig::new()
         .info(Color::Green)
