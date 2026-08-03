@@ -72,7 +72,7 @@ impl App {
                 pixel[3] = 0xFF; // A (Always 255 for opaque)
             }
             if let Err(e) = pixels.render() {
-                println!("Render error: {}", e);
+                log::error!("Render error: {}", e);
                 event_loop.exit();
             }
         }
