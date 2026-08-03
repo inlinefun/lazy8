@@ -44,7 +44,21 @@ impl Default for CHIP8 {
 }
 
 impl CHIP8 {
-    pub fn load(&mut self) {}
+    pub fn load(&mut self, data: Vec<u8>) {
+        let mut exceeds = false;
+        for (index, &byte) in data.iter().enumerate() {
+            if 0x200 + index < (4 * 1024) {
+                self._memory[0x200 + index] = byte
+            } else {
+                exceeds = true;
+            }
+        }
+        if exceeds {
+            log::debug!("Rom file exceeds memory limits, entire rom file might not be loaded");
+            log::error!("Failed to load rom file");
+        }
+        log::trace!("Loaded rom file");
+    }
     pub fn step(&mut self) {
         let opcode = self.fetch();
         let data = self.decode(opcode);

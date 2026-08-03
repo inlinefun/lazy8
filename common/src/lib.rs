@@ -10,6 +10,9 @@ pub struct RunArgs {
     /// Specify whether the program should output debug logs
     #[arg(short, long)]
     pub debug_mode: bool,
+    /// Specify a rom file to load
+    #[arg(short, long)]
+    pub rom_file: Option<String>,
 }
 
 pub fn parse_args() -> RunArgs {
