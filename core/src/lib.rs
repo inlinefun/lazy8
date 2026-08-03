@@ -1,7 +1,7 @@
 mod instructions;
 
 pub struct CHIP8 {
-    display: [bool; 64 * 32],
+    pub display: [bool; 64 * 32],
     memory: [u8; 4 * 1024],
     pc: u16,
     i: u16,

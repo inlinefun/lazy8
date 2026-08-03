@@ -11,3 +11,5 @@ lazy8-common.workspace = true
 lazy8-core.workspace = true
 
 log.workspace = true
+winit.workspace = true
+pixels.workspace = true
