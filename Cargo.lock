@@ -267,6 +267,7 @@ name = "lazy8-core"
 version = "0.1.0"
 dependencies = [
  "lazy8-common",
+ "log",
 ]
 
 [[package]]
