@@ -57,7 +57,7 @@ impl CHIP8 {
             log::debug!("Rom file exceeds memory limits, entire rom file might not be loaded");
             log::error!("Failed to load rom file");
         }
-        log::trace!("Loaded rom file");
+        log::debug!("Loaded rom file");
     }
     pub fn step(&mut self) {
         let opcode = self.fetch();
@@ -122,7 +122,7 @@ impl CHIP8 {
 
             _ => {
                 log::debug!("Opcode {} possibly not implemented", data.opcode);
-                log::trace!("{}, {}, {}, {}", data.instruction, data.x, data.y, data.n);
+                log::debug!("{}, {}, {}, {}", data.instruction, data.x, data.y, data.n);
                 panic!("Instruction not implemented (?)")
             }
         }
