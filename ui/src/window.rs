@@ -43,6 +43,14 @@ impl ApplicationHandler for App {
                 log::trace!("Received window close request");
                 event_loop.exit();
             }
+            WindowEvent::KeyboardInput {
+                device_id: _,
+                event,
+                is_synthetic: _,
+            } => {
+                // TODO: parse keys into keypresses for CHIP-8
+                dbg!(event);
+            }
             WindowEvent::RedrawRequested => {
                 self.chip8.step();
                 self.render(event_loop);
