@@ -120,6 +120,24 @@ impl CHIP8 {
             // display
             (0xD, _, _, _) => self.display(data.x, data.y, data.n),
 
+            // arithmetic operations :woe:
+            // 8XY0
+            (0x8, _, _, 0) => self.arithmetic_set(data.x, data.y),
+            // 8XY1
+            (0x8, _, _, 1) => self.artihmetic_binary_or(data.x, data.y),
+            // 8XY2
+            (0x8, _, _, 2) => self.arithmetic_binary_and(data.x, data.y),
+            // 8XY3
+            (0x8, _, _, 3) => self.arithmetic_binary_xor(data.x, data.y),
+            // 8XY4
+            (0x8, _, _, 4) => self.arithmetic_add(data.x, data.y),
+            // 8XY5
+            (0x8, _, _, 5) => self.arithmetic_subtract(data.x, data.y),
+            // 8XY7
+            (0x8, _, _, 7) => self.arithmetic_subtract(data.y, data.x),
+            // TODO: implement 8XY6, 8XYE
+
+            //
             _ => {
                 log::debug!("Opcode {} possibly not implemented", data.opcode);
                 log::debug!("{}, {}, {}, {}", data.instruction, data.x, data.y, data.n);

@@ -118,4 +118,30 @@ impl CHIP8 {
             }
         }
     }
+
+    pub(crate) fn arithmetic_set(&mut self, x: u16, y: u16) {
+        self.registers[x as usize] = self.registers[y as usize];
+    }
+    pub(crate) fn artihmetic_binary_or(&mut self, x: u16, y: u16) {
+        self.registers[x as usize] = self.registers[x as usize] | self.registers[y as usize]
+    }
+    pub(crate) fn arithmetic_binary_and(&mut self, x: u16, y: u16) {
+        self.registers[x as usize] = self.registers[x as usize] & self.registers[y as usize]
+    }
+    pub(crate) fn arithmetic_binary_xor(&mut self, x: u16, y: u16) {
+        self.registers[x as usize] = self.registers[x as usize] ^ self.registers[y as usize]
+    }
+    pub(crate) fn arithmetic_add(&mut self, x: u16, y: u16) {
+        let (value, overflowing) =
+            self.registers[x as usize].overflowing_add(self.registers[y as usize]);
+        self.registers[x as usize] = value;
+        self.registers[0xF as usize] = if overflowing { 0x1 } else { 0x0 };
+    }
+    // TODO: verify result after all instructions are implemented
+    pub(crate) fn arithmetic_subtract(&mut self, x: u16, y: u16) {
+        let (value, overflowing) =
+            self.registers[x as usize].overflowing_sub(self.registers[y as usize]);
+        self.registers[x as usize] = value;
+        self.registers[0xF as usize] = if overflowing { 0x1 } else { 0x0 };
+    }
 }
